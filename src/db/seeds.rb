@@ -10,8 +10,8 @@ Item.destroy_all
 Order.destroy_all
 User.destroy_all
 
-user = User.create(email: 'foo@bar.com', password: 'password', password_confirmation: 'password')
-user1 = User.create(email: 'bar@foo.com', password: 'password', password_confirmation: 'password')
+user = User.create(user_name: 'ryguy', first_name: 'Ryan', last_name: 'Magic', street_number: '1', street_name: 'lovers lane', city: 'Auckland', state: 'NSW'  email: 'foo@bar.com', password: 'password', password_confirmation: 'password')
+user1 = User.create(user_name: 'otherguy', first_name: 'Dan', last_name: 'Magic', street_number: '1', street_name: 'Cool St', city: 'Wellington', state: 'NZ'  email: 'bar@foo.com', password: 'password', password_confirmation: 'password')
 
 user.items.create(
   [
