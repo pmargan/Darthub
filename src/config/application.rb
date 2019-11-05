@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'boot'
 
 require 'rails/all'
@@ -15,5 +17,15 @@ module Darthub
     # Application configuration can go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded after loading
     # the framework and any gems in your application.
+    ActionMailer::Base.smtp_settings = {
+      address: 'smtp.gmail.com',
+      domain: 'gmail.google.com',
+      port: 587,
+      user_name: 'mydarthub@gmail.com',
+      password: 'S849UCpRzFTMdTi',
+      authentication: 'login',
+      enable_starttls: true
+
+    }
   end
 end
