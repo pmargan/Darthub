@@ -17,7 +17,7 @@
     <% if flash[:error] %>
       <p class='error' ><%= flash[:error] %></p>
     <% end %>
-
+    <%= image_tag "dartboard.png", class: 'logo' %>
     <% if user_signed_in? %>
       <%= link_to 'Sign Out', destroy_user_session_path, method: 'delete' %>
     <% else %>

@@ -1,6 +1,9 @@
+# frozen_string_literal: true
+
 class OrdersController < ApplicationController
   before_action :check_login
-  before_action :set_order, only: [:show, :edit, :update, :destroy]
+  before_action :check_owner, only: %i[edit update destroy]
+  before_action :set_order, only: %i[show edit update destroy]
 
   # GET /orders
   # GET /orders.json
@@ -10,8 +13,7 @@ class OrdersController < ApplicationController
 
   # GET /orders/1
   # GET /orders/1.json
-  def show
-  end
+  def show; end
 
   # GET /orders/new
   def new
@@ -19,8 +21,7 @@ class OrdersController < ApplicationController
   end
 
   # GET /orders/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /orders
   # POST /orders.json
@@ -63,13 +64,25 @@ class OrdersController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_order
-      @order = Order.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def order_params
-      params.require(:order).permit(:order_id, :user_id)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_order
+    @order = Order.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def order_params
+    params.require(:order).permit(:order_id, :user_id)
+  end
+
+  def user_owns?(order)
+    current_user.orders.include?(order)
+  end
+
+  def check_owner
+    return if user_owns?(Order.find(params[:id])) || current_user.has_role?(:admin)
+
+    flash[:error] = 'You do not have permissions to edit this item'
+    redirect_to orders_path
+  end
 end

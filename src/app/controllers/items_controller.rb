@@ -2,7 +2,7 @@
 
 class ItemsController < ApplicationController
   before_action :check_login
-  before_action :check_owner, only: [:edit]
+  before_action :check_owner, only: %i[edit update destroy]
   before_action :set_item, only: %i[show edit update destroy]
 
   # GET /items
@@ -13,20 +13,26 @@ class ItemsController < ApplicationController
 
   # GET /items/1
   # GET /items/1.json
-  def show; end
+  def show
+    @items = Item.all
+  end
 
   # GET /items/new
   def new
     @item = Item.new
+    @item = current_user.items.build
   end
 
   # GET /items/1/edit
-  def edit; end
+  def edit
+  end
 
   # POST /items
   # POST /items.json
   def create
     @item = Item.new(item_params)
+    @item = current_user.items.build(item_params)
+
     respond_to do |format|
       if @item.save
         format.html { redirect_to @item, notice: 'Item was successfully created.' }
@@ -42,7 +48,6 @@ class ItemsController < ApplicationController
   # PATCH/PUT /items/1.json
   def update
     @item = Item.find(params[:id])
-    return unless user_owns?(@item)
 
     respond_to do |format|
       if @item.update(item_params)
@@ -59,7 +64,6 @@ class ItemsController < ApplicationController
   # DELETE /items/1.json
   def destroy
     @item = Item.find(params[:id])
-    return unless user_owns?(@item)
 
     @item.destroy
     respond_to do |format|
@@ -85,7 +89,7 @@ class ItemsController < ApplicationController
   end
 
   def check_owner
-    return unless user_owns?(Item.find(params[:id]))
+    return if user_owns?(Item.find(params[:id])) || current_user.has_role?(:admin)
 
     flash[:error] = 'You do not have permissions to edit this item'
     redirect_to items_path
