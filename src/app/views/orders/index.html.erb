@@ -17,8 +17,11 @@
         <td><%= order.order_id %></td>
         <td><%= order.user_id %></td>
         <td><%= link_to 'Show', order %></td>
+        
+       <%= if user_owns?(Item.find(params[:id])) || current_user.has_role?(:admin) %>
         <td><%= link_to 'Edit', edit_order_path(order) %></td>
         <td><%= link_to 'Destroy', order, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      <% end %>
       </tr>
     <% end %>
   </tbody>
