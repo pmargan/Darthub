@@ -11,6 +11,7 @@
       <th>Item condtition</th>
       <th>Price</th>
       <th>Image</th>
+      <th>Quantity</th>
       <th>User</th>
       <th colspan="3"></th>
     </tr>
@@ -23,8 +24,13 @@
       <td><%= item.name %></td>
       <td><%= item.description %></td>
       <td><%= item.condition %></td>
-      <td><%= item.price %></td>
-      <td><%= item.image %></td>
+      <td> <strong>AUD$<%= item.price %></strong></td>
+      <td><p class="item-image">
+        <% if item.image.attached? %>
+        <%= image_tag item.image, width: 50 %>
+        <% end %>
+      </p></td>
+      <td><%= item.quantity %> </td>
       <!-- <td><%= item.user_id %></td> -->
       <td><%= link_to 'Show', item %></td>
       <% if current_user == item.user || current_user.has_role?(:admin) %>

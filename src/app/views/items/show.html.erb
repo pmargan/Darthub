@@ -21,15 +21,22 @@
 </p>
 
 <p>
-  <strong>Price:</strong>
+  <strong>Price: AUD$</strong>
   <%= @item.price %>
 </p>
 
-<p>
-  <strong>Image:</strong>
-  <%= @item.image %>
+<p class="item-image">
+  <% if @item.image.attached? %>
+  
+    <%= image_tag @item.image, width: 250 %>
+<% else %>
+  <p>No image attached</p>
+  <% end %>
 </p>
-
+<p>
+    <strong>Quantity</strong>
+  <%= @item.quantity %>
+</p>
 <!-- <p>
   <strong>User:</strong>
   <%= @item.user_id %>

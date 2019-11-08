@@ -10,7 +10,7 @@ class ItemsController < ApplicationController
   def index
     @items = Item.all
   end
-  
+
   # GET /items/1
   # GET /items/1.json
   def show
@@ -21,18 +21,18 @@ class ItemsController < ApplicationController
   def new
     @item = Item.new
     @item = current_user.items.build
+    @item.quantity = 1
   end
 
   # GET /items/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /items
   # POST /items.json
   def create
     @item = Item.new(item_params)
     @item = current_user.items.build(item_params)
-
+    @item.image.attach(params[:item][:image])
     respond_to do |format|
       if @item.save
         format.html { redirect_to @item, notice: 'Item was successfully created.' }
@@ -81,7 +81,7 @@ class ItemsController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def item_params
-    params.require(:item).permit(:name, :description, :condition, :price, :image)
+    params.require(:item).permit(:name, :description, :condition, :price, :image, :quantity)
   end
 
   def user_owns?(item)
