@@ -14,11 +14,11 @@
   <tbody>
     <% @orders.each do |order| %>
       <tr>
-        <td><%= order.order_id %></td>
-        <td><%= order.user_id %></td>
-        <td><%= link_to 'Show', order %></td>
+        <td><%= order.id %></td>
+        <td><%= order.user.id %></td>
+        <td><%= link_to 'Show', item_order_path(params[:item_id], order.id) %></td>
         
-       <%= if user_owns?(Item.find(params[:id])) || current_user.has_role?(:admin) %>
+       <% if current_user.items.include?(Item.find(params[:item_id])) || current_user.has_role?(:admin) %>
         <td><%= link_to 'Edit', edit_order_path(order) %></td>
         <td><%= link_to 'Destroy', order, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       <% end %>
@@ -29,4 +29,4 @@
 
 <br>
 
-<%= link_to 'New Order', new_order_path %>
+<%= link_to 'New Order', new_item_order_path(params[:item_id]) %>

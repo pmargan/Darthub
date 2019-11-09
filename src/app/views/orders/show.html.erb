@@ -1,19 +1,18 @@
 <p id="notice"><%= notice %></p>
 
+<div>
+  <h2 style="font-size: 2em;">Your Order</h2>
+</div>
 <p>
   <strong>Order:</strong>
-  <%= @order.order_id %>
+  <%= @order.id %>
 </p>
 
 <p>
   <strong>User:</strong>
-  <%= @order.user_id %>
+  <%= @order.user.id %>
 </p>
 
-<div>
-  <h2>Notice Me!</h2>
-  <h2 style="font-size: 100px;">Not Me;</h2>
-</div>
 
-<%= link_to 'Edit', edit_order_path(@order) %> |
-<%= link_to 'Back', orders_path %>
+<%= link_to 'Edit', edit_item_order_path(params[:item_id], params[:id]) %> |
+<%= link_to 'Back', item_orders_path(params[:item_id]) %>

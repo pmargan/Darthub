@@ -24,7 +24,7 @@
       <td><%= item.name %></td>
       <td><%= item.description %></td>
       <td><%= item.condition %></td>
-      <td> <strong>AUD$<%= item.price %></strong></td>
+      <td> <strong>AUD<%= number_to_currency item.price %></strong></td>
       <td><p class="item-image">
         <% if item.image.attached? %>
         <%= image_tag item.image, width: 50 %>
