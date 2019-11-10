@@ -13,7 +13,7 @@ button {
   border: 1px black solid;
   border-radius: 2em;
   min-width: 50%;
-  max-width: 70%;
+  max-width: 50%;
   height: 30px;
   line-height: 51px;
   font-size: 1em;
@@ -21,7 +21,7 @@ button {
 }
 
 .container{
-  max-width: 50%;
+  max-width: 70%;
   height: auto;
   display: flex;
   flex-direction: column;
@@ -34,13 +34,15 @@ button {
   border: 1px black solid;
   border-radius: 2em;
   max-width: 100%;
+  min-width: 90%;
   height: 50px;
   text-decoration: none;
   text-align: center;
   line-height: 45px;
+  margin: 0.3em;
 }
 a {
   text-decoration: none;
   text-align: center;
-  margin-top: 1em;
+  margin-top: 1em 0.3em 0.3em 0.3em;
 }

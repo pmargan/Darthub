@@ -12,7 +12,6 @@ class ItemsController < ApplicationController
   end
 
   def my_items
-    
   end
 
   # GET /items/1

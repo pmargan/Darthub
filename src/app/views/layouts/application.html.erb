@@ -19,10 +19,11 @@
     <% end %>
     <%= image_tag "dartboard.png", class: 'logo' %>
     <% if user_signed_in? %>
-      <%= link_to 'Sign Out', destroy_user_session_path, method: 'delete' %>
+      <%= link_to 'Sign Out', destroy_user_session_path, method: 'delete', class: 'btn' %>
+      <%= link_to 'Back to Menu', page_path('menupage'), class: 'btn' %>
     <% else %>
-      <%= link_to 'Sign In', new_user_session_path %>
-      <%= link_to 'Sign Up', new_user_registration_path %>
+      <%= link_to 'Sign In', new_user_session_path, class: 'btn' %>
+      <%= link_to 'Sign Up', new_user_registration_path, class: 'btn' %>
     <% end %>
     <%= yield %>
   </body>
