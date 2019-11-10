@@ -9,7 +9,7 @@
         <% User.all.each do |user| %>
             <% next if user.has_role?('admin') %>
             User: <%= user.email %>
-            <%= link_to 'Delete User', delete_user_path(user), method: 'delete' %> 
+            <%= link_to 'Delete User', delete_user_path(user), method: 'delete', class: 'btn' %> 
             <br />
         <% end %>
     </div>
