@@ -6,6 +6,11 @@ Rails.application.routes.draw do
   resources :items do
     resources :orders
   end
+
+  get '/my_items', to: 'items#my_items', as: 'my_items'
+
   resources :pages
+
+  delete 'users/:id', to: 'registrations#delete', as: 'delete_user'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

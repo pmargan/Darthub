@@ -1,31 +1,48 @@
 <p id="notice"><%= notice %></p>
 
 <h1>Orders</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>Order</th>
-      <th>User</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @orders.each do |order| %>
-      <tr>
-        <td><%= order.id %></td>
-        <td><%= order.user.id %></td>
-        <td><%= link_to 'Show', item_order_path(params[:item_id], order.id) %></td>
-        
-       <% if current_user.items.include?(Item.find(params[:item_id])) || current_user.has_role?(:admin) %>
-        <td><%= link_to 'Edit', edit_order_path(order) %></td>
-        <td><%= link_to 'Destroy', order, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+<% current_user.orders.each do |order| %>
+  <div>
+    <p>
+      <strong>Item name:</strong>
+      <%= order.items.first.name if order.items.first %>
+    </p>
+    
+    <p>
+      <strong>Item description:</strong>
+      <%= order.items.first.description if order.items.first  %>
+    </p>
+    
+    <p>
+      <strong>Item condition:</strong>
+      <%= order.items.first.condition if order.items.first  %>
+    </p>
+    
+    <p>
+      <strong>Price: AUD$</strong>
+      <%= order.items.first.price if order.items.first  %>
+    </p>
+    
+    <p>
+      <strong>Quantity: </strong>
+      <%= order.quantity if order.items.first  %>
+    </p>
+    
+    <p>
+      <strong>Total: </strong>
+      <%= order.quantity * order.items.first.price if order.items.first  %>
+    </p>
+    
+    <p class="item-image">
+      <% if order.items.first && order.items.first.image.attached? %>
+      
+        <%= image_tag order.items.first.image, width: 250 %>
+    <% else %>
+      <p>No image attached</p>
       <% end %>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+    </p>
+  </div>
+<% end %>
 
 <br>
 

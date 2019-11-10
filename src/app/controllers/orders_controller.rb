@@ -26,12 +26,22 @@ class OrdersController < ApplicationController
   # POST /orders
   # POST /orders.json
   def create
-    @order = current_user.orders.new(order_params)
     @item = Item.find(params[:item_id])
+
+    if((@item.quantity || 0) < params[:order][:quantity].to_i)
+      flash[:error] = @item.quantity ? "There is only #{@item.quantity} items availiable" : "The item is Sold Out"
+      redirect_to item_path(@item)
+      return
+    end
+
+    @order = current_user.orders.new(order_params)
+    @order.items << @item
+    @item.quantity -= params[:order][:quantity].to_i
+    @item.save
 
     respond_to do |format|
       if @order.save
-        format.html { redirect_to item_order_path(@item, @order), notice: 'Order was successfully created.' }
+        format.html { redirect_to item_orders_path(@item), notice: 'Order was successfully created.' }
         format.json { render :show, status: :created, location: @order }
       else
         format.html { render :new }
@@ -73,7 +83,7 @@ class OrdersController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def order_params
-    params.require(:order).permit(:order_id, :user_id)
+    params.require(:order).permit(:quantity)
   end
 
   def user_owns?(order)

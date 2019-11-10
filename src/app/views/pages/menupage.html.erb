@@ -1,4 +1,34 @@
-<h1>Members Area</h1>
+
+
+
+
+<% if user_signed_in? && current_user.has_role?('admin') %>
+    <h1>Admin area</h1>
+    <button class='btn' onclick="clicked()">Edit Users</button>
+    <div id='show_users'>
+        <% User.all.each do |user| %>
+            <% next if user.has_role?('admin') %>
+            User: <%= user.email %>
+            <%= link_to 'Delete User', delete_user_path(user), method: 'delete' %> 
+            <br />
+        <% end %>
+    </div>
+<% else %>
+    <h1>Members Area</h1>
+<% end %>
 <div class="container">
-    <%= link_to 'Browse Items', items_path %>  
+    <%= link_to 'Browse Items', items_path, class: 'btn' %> 
+    <%= link_to 'Sell an Item', new_item_path, class: 'btn' %>
 </div>
+<script>
+        var dropped = true;
+        document.getElementById('show_users').style.display = 'none';
+        function clicked() {
+            if(dropped){
+                document.getElementById('show_users').style.display = 'block';
+            } else {
+                document.getElementById('show_users').style.display = 'none';
+            }
+            dropped = !dropped
+        }
+    </script>
