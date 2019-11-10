@@ -1,7 +1,3 @@
-
-
-
-
 <% if user_signed_in? && current_user.has_role?('admin') %>
     <h1>Admin area</h1>
     <button class='btn' onclick="clicked()">Edit Users</button>
@@ -19,6 +15,7 @@
 <div class="container">
     <%= link_to 'Browse Items', items_path, class: 'btn' %> 
     <%= link_to 'Sell an Item', new_item_path, class: 'btn' %>
+    <%= link_to 'My Items', my_items_path, class: 'btn' %>
 </div>
 <script>
         var dropped = true;
