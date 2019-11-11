@@ -1,6 +1,6 @@
 <% if user_signed_in? && current_user.has_role?('admin') %>
     <h1>Admin area</h1>
-    <button class='btn' onclick="clicked()">Edit Users</button>
+    <button onclick="clicked()">Edit Users</button>
     <div id='show_users'>
         <% User.all.each do |user| %>
             <% next if user.has_role?('admin') %>
