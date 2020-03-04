@@ -1,5 +1,7 @@
 {
   "name": "darthub",
   "private": true,
-  "dependencies": {}
+  "dependencies": {
+    "bundler": "^0.8.0"
+  }
 }
